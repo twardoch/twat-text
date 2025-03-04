@@ -1,0 +1,174 @@
+2025-03-04 07:18:26 - 
+=== PROJECT STATEMENT ===
+2025-03-04 07:18:26 - ---
+description: About this project
+globs:
+---
+# About this project
+
+`twat-fs` is a file system utility library focused on robust and extensible file upload capabilities with multiple provider support. It provides:
+
+- Multi-provider upload system with smart fallback (catbox.moe default, plus Dropbox, S3, etc.)
+- Automatic retry for temporary failures, fallback for permanent ones
+- URL validation and clean developer experience with type hints
+- Simple CLI: `python -m twat_fs upload_file path/to/file.txt`
+- Easy installation: `uv pip install twat-fs` (basic) or `uv pip install 'twat-fs[all,dev]'` (all features)
+
+## Development Notes
+- Uses `uv` for Python package management
+- Quality tools: ruff, mypy, pytest
+- Clear provider protocol for adding new storage backends
+- Strong typing and runtime checks throughout
+
+2025-03-04 07:18:26 - 
+=== Current Status ===
+2025-03-04 07:18:26 - Error: TODO.md is missing
+2025-03-04 07:18:26 - [ 800]  .
+├── [  64]  .benchmarks
+├── [  96]  .cursor
+│   └── [ 224]  rules
+│       ├── [ 821]  0project.mdc
+│       ├── [ 516]  cleanup.mdc
+│       ├── [ 952]  filetree.mdc
+│       └── [2.0K]  quality.mdc
+├── [  96]  .github
+│   └── [ 128]  workflows
+│       ├── [2.7K]  push.yml
+│       └── [1.4K]  release.yml
+├── [3.5K]  .gitignore
+├── [ 470]  .pre-commit-config.yaml
+├── [ 987]  CLEANUP.txt
+├── [1.0K]  LICENSE
+├── [1.3K]  LOG.md
+├── [ 708]  README.md
+├── [   7]  VERSION.txt
+├── [ 13K]  cleanup.py
+├── [ 160]  dist
+├── [ 426]  package.toml
+├── [7.3K]  pyproject.toml
+├── [ 128]  src
+│   └── [ 128]  twat_text
+│       └── [1.6K]  twat_text.py
+└── [ 128]  tests
+    └── [ 151]  test_twat_text.py
+
+10 directories, 18 files
+
+2025-03-04 07:18:26 - 
+Project structure:
+2025-03-04 07:18:26 - [ 800]  .
+├── [  64]  .benchmarks
+├── [  96]  .cursor
+│   └── [ 224]  rules
+│       ├── [ 821]  0project.mdc
+│       ├── [ 516]  cleanup.mdc
+│       ├── [ 952]  filetree.mdc
+│       └── [2.0K]  quality.mdc
+├── [  96]  .github
+│   └── [ 128]  workflows
+│       ├── [2.7K]  push.yml
+│       └── [1.4K]  release.yml
+├── [3.5K]  .gitignore
+├── [ 470]  .pre-commit-config.yaml
+├── [ 987]  CLEANUP.txt
+├── [1.0K]  LICENSE
+├── [1.3K]  LOG.md
+├── [ 708]  README.md
+├── [   7]  VERSION.txt
+├── [ 13K]  cleanup.py
+├── [ 160]  dist
+├── [ 426]  package.toml
+├── [7.3K]  pyproject.toml
+├── [ 128]  src
+│   └── [ 128]  twat_text
+│       └── [1.6K]  twat_text.py
+└── [ 128]  tests
+    └── [ 151]  test_twat_text.py
+
+10 directories, 18 files
+
+2025-03-04 07:18:26 - On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .cursor/rules/filetree.mdc
+	modified:   .pre-commit-config.yaml
+	modified:   cleanup.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	CLEANUP.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+2025-03-04 07:18:26 - On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .cursor/rules/filetree.mdc
+	modified:   .pre-commit-config.yaml
+	modified:   cleanup.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	CLEANUP.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+2025-03-04 07:18:26 - 
+=== Environment Status ===
+2025-03-04 07:18:26 - Setting up virtual environment
+2025-03-04 07:18:28 - Virtual environment created and activated
+2025-03-04 07:18:28 - Installing package with all extras
+2025-03-04 07:18:28 - Setting up virtual environment
+2025-03-04 07:18:28 - Virtual environment created and activated
+2025-03-04 07:18:29 - Package installed successfully
+2025-03-04 07:18:29 - Running code quality checks
+2025-03-04 07:18:29 - >>> Running code fixes...
+2025-03-04 07:18:29 - All checks passed!
+
+2025-03-04 07:18:30 - 2 files left unchanged
+
+2025-03-04 07:18:30 - >>>Running type checks...
+2025-03-04 07:18:44 - tests/test_twat_text.py:4: error: Function is missing a return type annotation  [no-untyped-def]
+tests/test_twat_text.py:4: note: Use "-> None" if function does not return a value
+Found 1 error in 1 file (checked 3 source files)
+
+2025-03-04 07:18:44 - >>> Running tests...
+2025-03-04 07:18:51 - ============================= test session starts ==============================
+platform darwin -- Python 3.12.8, pytest-8.3.5, pluggy-1.5.0 -- /Users/adam/Developer/vcs/github.twardoch/pub/twat-packages/_good/twat/plugins/repos/twat_text/.venv/bin/python
+cachedir: .pytest_cache
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/adam/Developer/vcs/github.twardoch/pub/twat-packages/_good/twat/plugins/repos/twat_text
+configfile: pyproject.toml
+plugins: cov-6.0.0, benchmark-5.1.0, xdist-3.6.1
+collecting ... collected 1 item
+
+tests/test_twat_text.py::test_version FAILED                             [100%]
+
+=================================== FAILURES ===================================
+_________________________________ test_version _________________________________
+
+    def test_version():
+        """Verify package exposes version."""
+        import twat_text
+    
+>       assert twat_text.__version__
+E       AttributeError: module 'twat_text' has no attribute '__version__'
+
+tests/test_twat_text.py:8: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_twat_text.py::test_version - AttributeError: module 'twat_t...
+============================== 1 failed in 0.49s ===============================
+
+2025-03-04 07:18:51 - All checks completed
+2025-03-04 07:18:51 -  M .cursor/rules/filetree.mdc
+ M .pre-commit-config.yaml
+ M cleanup.py
+?? CLEANUP.txt
+
+2025-03-04 07:18:51 - Changes detected in repository
