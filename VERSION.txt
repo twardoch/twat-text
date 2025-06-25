@@ -1,1 +1,21 @@
 Auto-commit: Save local changes
+
+# Conflicts:
+#	cleanup.py
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# interactive rebase in progress; onto a32620a
+# Last command done (1 command done):
+#    pick 91e4918 Auto-commit: Save local changes
+# Next commands to do (3 remaining commands):
+#    pick 3f42377 Auto-merge: Resolved conflicts
+#    pick a1e8ba0 Auto-commit: Save local changes
+# You are currently rebasing branch 'main' on 'a32620a'.
+#
+# Changes to be committed:
+#	modified:   .gitignore
+#	modified:   VERSION.txt
+#	modified:   cleanup.py
+#
