@@ -59,6 +59,12 @@ Documentation = "https://github.com/twardoch/twat-text#readme"
 Issues = "https://github.com/twardoch/twat-text/issues"
 Source = "https://github.com/twardoch/twat-text"
 
+# Console Scripts
+# ---------------
+# Command-line scripts available after installation
+[project.scripts]
+twat-text = "twat_text.twat_text:main"
+
 # Twat Plugin Registration
 # -----------------------
 # Registers this package as a plugin for the twat ecosystem
@@ -70,7 +76,8 @@ text = "twat_text"
 source = "vcs"
 
 [tool.hatch.version.raw-options]
-version_scheme = "post-release"
+version_scheme = "release-branch-semver"
+local_scheme = "node-and-date"
 
 # VCS hook configuration for version file generation
 [tool.hatch.build.hooks.vcs]
@@ -218,10 +225,18 @@ dev = [
     "pre-commit>=4.1.0",     # Git pre-commit hooks
     "ruff>=0.9.6",           # Fast Python linter
     "mypy>=1.15.0",          # Static type checker
+    "pyinstaller>=6.0.0",   # For building binaries
 ]
 
 all = [
     "twat>=1.8.1",           # Main twat package
+]
+
+build = [
+    "pyinstaller>=6.0.0",   # For building binaries
+    "build>=1.0.0",         # Build tools
+    "hatchling>=1.27.0",    # Build backend
+    "hatch-vcs>=0.4.0",     # VCS integration
 ]
 
 # Test environment configuration
