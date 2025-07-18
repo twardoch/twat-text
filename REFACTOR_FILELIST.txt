@@ -1,0 +1,5 @@
+33	./REPO_CONTENT.txt
+13	./cleanup.py
+8	./CLEANUP.txt
+8	./README.md
+8	./pyproject.toml
