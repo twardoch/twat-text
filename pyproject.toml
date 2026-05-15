@@ -116,7 +116,6 @@ typing = "mypy --install-types --non-interactive {args:src/twat_text tests}"
 style = ["ruff check {args:.}", "ruff format {args:.}"]
 fmt = ["ruff format {args:.}", "ruff check --fix {args:.}"]
 all = ["style", "typing"]
-
 # Ruff (linter) configuration
 [tool.ruff]
 target-version = "py310"
@@ -240,10 +239,7 @@ docs = [
     "mkdocstrings[python]>=0.27.0",
 ]
 
-all = [
-    "twat>=1.8.1",           # Main twat package
-]
-
+all = ["twat>=1.8.1", "twat-llm[all]>=2.7.7"]
 build = [
     "pyinstaller>=6.0.0",   # For building binaries
     "build>=1.0.0",         # Build tools
@@ -252,6 +248,9 @@ build = [
 ]
 
 # Test environment configuration
+llm = [
+    "twat-llm[all]>=2.7.7",
+]
 [tool.hatch.envs.test]
 dependencies = [".[test]"]
 
