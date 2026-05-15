@@ -1,14 +1,55 @@
-# src/twat_text/__init__.py
+"""twat-text: Text processing utilities for the twat ecosystem."""
+
+from __future__ import annotations
+
+from importlib.metadata import PackageNotFoundError, version
+
 try:
-    from .__version__ import __version__
-except ImportError:
-    # This happens if the package is not installed and __version__.py is not generated
-    # or if accessing from a raw source checkout before any build process.
-    # hatch-vcs generates __version__.py during the build.
-    # For local development without a build, or if __version__.py is gitignored:
-    __version__ = "0.0.0+unknown" # Placeholder
+    __version__ = version("twat-text")
+except PackageNotFoundError:
+    __version__ = "0.0.0-dev"
 
-# Expose main functionalities from twat_text.py at the package level
-from .twat_text import Config, process_data, main
+from .twat_text import (
+    Config,
+    chunk_text,
+    classify,
+    clean_text,
+    context_window_chunks,
+    convert_text,
+    estimate_tokens,
+    extract_emails,
+    extract_numbers,
+    extract_structured,
+    extract_urls,
+    html_to_plain,
+    main,
+    markdown_to_plain,
+    normalize_text,
+    plain_to_html,
+    process_data,
+    rewrite,
+    summarize,
+)
 
-__all__ = ["__version__", "Config", "process_data", "main"]
+__all__ = [
+    "Config",
+    "__version__",
+    "chunk_text",
+    "classify",
+    "clean_text",
+    "context_window_chunks",
+    "convert_text",
+    "estimate_tokens",
+    "extract_emails",
+    "extract_numbers",
+    "extract_structured",
+    "extract_urls",
+    "html_to_plain",
+    "main",
+    "markdown_to_plain",
+    "normalize_text",
+    "plain_to_html",
+    "process_data",
+    "rewrite",
+    "summarize",
+]

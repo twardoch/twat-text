@@ -1,179 +1,123 @@
 """Test suite for twat_text."""
+
+from __future__ import annotations
+
+from typing import Any
+from unittest.mock import patch
+
 import pytest
-from unittest.mock import Mock, patch
 
 import twat_text
-from twat_text.twat_text import Config, process_data, main
+from twat_text import (
+    Config,
+    chunk_text,
+    clean_text,
+    context_window_chunks,
+    convert_text,
+    estimate_tokens,
+    extract_emails,
+    extract_numbers,
+    extract_urls,
+    html_to_plain,
+    main,
+    markdown_to_plain,
+    plain_to_html,
+    process_data,
+    rewrite,
+    summarize,
+)
 
 
-def test_version():
+def test_version() -> None:
     """Verify package exposes version."""
+
     assert twat_text.__version__
 
 
-class TestConfig:
-    """Test cases for Config dataclass."""
-    
-    def test_config_creation_with_required_fields(self):
-        """Test Config creation with required fields."""
-        config = Config(name="test", value="test_value")
-        assert config.name == "test"
-        assert config.value == "test_value"
-        assert config.options is None
-    
-    def test_config_creation_with_all_fields(self):
-        """Test Config creation with all fields."""
-        options = {"key1": "value1", "key2": "value2"}
-        config = Config(name="test", value=42, options=options)
-        assert config.name == "test"
-        assert config.value == 42
-        assert config.options == options
-    
-    def test_config_with_different_value_types(self):
-        """Test Config with different value types."""
-        # String value
-        config_str = Config(name="test_str", value="string_value")
-        assert isinstance(config_str.value, str)
-        
-        # Integer value
-        config_int = Config(name="test_int", value=123)
-        assert isinstance(config_int.value, int)
-        
-        # Float value
-        config_float = Config(name="test_float", value=3.14)
-        assert isinstance(config_float.value, float)
+def test_clean_text_normalizes_whitespace_and_quotes() -> None:
+    """clean_text handles typography and whitespace."""
+
+    assert clean_text(" “Hello”\t\tworld\n\n\nNext ") == '"Hello" world\n\nNext'
 
 
-class TestProcessData:
-    """Test cases for process_data function."""
-    
-    def test_process_data_with_empty_list_raises_error(self):
-        """Test that empty data list raises ValueError."""
-        with pytest.raises(ValueError, match="Input data cannot be empty"):
-            process_data([])
-    
-    def test_process_data_with_valid_data(self):
-        """Test process_data with valid data."""
-        data = ["test", "data"]
-        result = process_data(data)
-        assert isinstance(result, dict)
-        assert result == {}  # Currently returns empty dict
-    
-    def test_process_data_with_config(self):
-        """Test process_data with configuration."""
-        data = ["test", "data"]
-        config = Config(name="test_config", value="test_value")
-        result = process_data(data, config=config)
-        assert isinstance(result, dict)
-        assert result == {}  # Currently returns empty dict
-    
-    def test_process_data_with_debug_mode(self):
-        """Test process_data with debug mode enabled."""
-        data = ["test", "data"]
-        with patch('twat_text.twat_text.logger') as mock_logger:
-            result = process_data(data, debug=True)
-            mock_logger.setLevel.assert_called_once()
-            mock_logger.debug.assert_called_once_with("Debug mode enabled")
-            assert isinstance(result, dict)
-    
-    def test_process_data_with_various_data_types(self):
-        """Test process_data with various data types."""
-        data = ["string", 123, 3.14, {"key": "value"}, [1, 2, 3]]
-        result = process_data(data)
-        assert isinstance(result, dict)
-        assert result == {}  # Currently returns empty dict
-    
-    def test_process_data_with_none_config(self):
-        """Test process_data with None config."""
-        data = ["test", "data"]
-        result = process_data(data, config=None)
-        assert isinstance(result, dict)
-        assert result == {}  # Currently returns empty dict
+def test_chunk_text_paragraphs_with_overlap() -> None:
+    """chunk_text preserves paragraph boundaries when possible."""
+
+    chunks = chunk_text("Alpha paragraph\n\nBeta paragraph\n\nGamma paragraph", max_chars=30, overlap=3)
+
+    assert chunks == ["Alpha paragraph", "aph Beta paragraph", "aph Gamma paragraph"]
 
 
-class TestMain:
-    """Test cases for main function."""
-    
-    def test_main_function_runs_successfully(self):
-        """Test that main function runs without errors."""
-        with patch('sys.argv', ['twat-text']):
-            with patch('twat_text.twat_text.logger') as mock_logger:
-                # This should not raise an exception
-                result = main()
-                # Verify logger was called and function returns success
-                mock_logger.info.assert_called_once()
-                assert result == 0
-    
-    def test_main_function_handles_exceptions(self):
-        """Test main function exception handling."""
-        with patch('sys.argv', ['twat-text']):
-            with patch('twat_text.twat_text.process_data') as mock_process_data:
-                mock_process_data.side_effect = Exception("Test exception")
-                result = main()
-                assert result == 1
-    
-    def test_main_function_with_args(self):
-        """Test main function with command line arguments."""
-        with patch('sys.argv', ['twat-text', '--debug', '--config', 'name=test', 'data1', 'data2']):
-            with patch('twat_text.twat_text.logger') as mock_logger:
-                result = main()
-                assert mock_logger.setLevel.call_count >= 1  # Called at least once
-                mock_logger.debug.assert_called_with("Debug mode enabled")
-                assert result == 0
+def test_chunk_text_rejects_bad_sizes() -> None:
+    """chunk_text validates max_chars and overlap."""
+
+    with pytest.raises(ValueError, match="max_chars"):
+        chunk_text("text", max_chars=0)
+    with pytest.raises(ValueError, match="overlap"):
+        chunk_text("text", max_chars=5, overlap=5)
 
 
-class TestIntegration:
-    """Integration tests for the module."""
-    
-    def test_complete_workflow(self):
-        """Test complete workflow with realistic data."""
-        # Create a config
-        config = Config(
-            name="integration_test",
-            value="test_value",
-            options={"debug": True, "mode": "test"}
-        )
-        
-        # Test data
-        test_data = ["sample", "text", "data"]
-        
-        # Process data
-        result = process_data(test_data, config=config, debug=True)
-        
-        # Verify result
-        assert isinstance(result, dict)
-        # Note: Since process_data is currently a placeholder, we're testing the interface
-    
-    def test_error_handling_integration(self):
-        """Test error handling in integration scenario."""
-        # Test with invalid data
-        with pytest.raises(ValueError):
-            process_data([], config=None, debug=False)
-        
-        # Test with valid data should work
-        result = process_data(["valid", "data"])
-        assert isinstance(result, dict)
+def test_extract_helpers() -> None:
+    """Extraction helpers return URLs, emails, and numbers."""
+
+    text = "Email ada@example.com, visit https://example.com, count 42 and -3.5."
+    assert extract_emails(text) == ["ada@example.com"]
+    assert extract_urls(text) == ["https://example.com"]
+    assert extract_numbers(text) == [42.0, -3.5]
 
 
-# Performance/Benchmark tests (if pytest-benchmark is available)
-class TestPerformance:
-    """Performance tests for the module."""
-    
-    def test_process_data_performance(self, benchmark):
-        """Benchmark process_data function."""
-        data = ["test"] * 1000  # Large dataset
-        config = Config(name="perf_test", value="test")
-        
-        result = benchmark(process_data, data, config=config)
-        assert isinstance(result, dict)
-    
-    def test_config_creation_performance(self, benchmark):
-        """Benchmark Config creation."""
-        options = {f"key_{i}": f"value_{i}" for i in range(100)}
-        
-        def create_config():
-            return Config(name="perf_test", value="test", options=options)
-        
-        config = benchmark(create_config)
-        assert isinstance(config, Config)
-        assert len(config.options) == 100
+def test_format_conversions() -> None:
+    """Markdown, HTML, and plain conversion boundaries work."""
+
+    assert markdown_to_plain("# Hello [Ada](https://example.com)") == "Hello Ada"
+    assert html_to_plain("<h1>Hello</h1><p>Ada &amp; Bob</p>") == "Hello\n\nAda & Bob"
+    assert plain_to_html("Hello\n\nAda") == "<p>Hello</p>\n<p>Ada</p>"
+    assert convert_text("**Hello**", source="markdown", target="html") == "<p>Hello</p>"
+
+
+def test_context_token_utilities() -> None:
+    """Token estimate and context chunks use deterministic heuristics."""
+
+    assert estimate_tokens("12345", chars_per_token=4) == 2
+    assert context_window_chunks("one two three four", max_tokens=2, chars_per_token=4)
+
+
+def test_process_data_returns_real_text_summary() -> None:
+    """process_data remains compatible while returning useful data."""
+
+    result = process_data(["Contact ada@example.com", "Score 12"], Config("test", "value", {"max_chars": 20}))
+
+    assert result["text"] == "Contact ada@example.com\nScore 12"
+    assert result["emails"] == ["ada@example.com"]
+    assert result["numbers"] == [12.0]
+    assert result["chunks"]
+
+
+def test_process_data_empty_raises() -> None:
+    """Empty process_data input keeps the existing error contract."""
+
+    with pytest.raises(ValueError, match="Input data cannot be empty"):
+        process_data([])
+
+
+@patch("twat_text.twat_text._llm_summarize_text", return_value="summary")
+def test_summarize_uses_twat_llm_adapter(mock_summarize: Any) -> None:
+    """summarize delegates LLM work to twat_llm."""
+
+    assert summarize("Long text") == "summary"
+    mock_summarize.assert_called_once_with("Long text", instruction=None, model_ids=None)
+
+
+@patch("twat_text.twat_text._llm_rewrite_text", return_value="rewrite")
+def test_rewrite_uses_twat_llm_adapter(mock_rewrite: Any) -> None:
+    """rewrite delegates LLM work to twat_llm."""
+
+    assert rewrite("hi", instruction="formal") == "rewrite"
+    mock_rewrite.assert_called_once_with("hi", instruction="formal", model_ids=None)
+
+
+def test_main_help_runs() -> None:
+    """CLI help path exits successfully through argparse."""
+
+    with patch("sys.argv", ["twat-text", "clean", "  Hello   world  "]):
+        assert main() == 0
