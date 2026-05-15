@@ -1,7 +1,7 @@
 """twat-text: Text processing utilities for the twat ecosystem."""
 
 from __future__ import annotations
-from .__version__ import __version__  # noqa: F401
+from .__version__ import __version__
 
 
 from .twat_text import (
