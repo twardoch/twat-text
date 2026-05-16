@@ -43,6 +43,7 @@ classifiers = [
 # External packages required for the project to function
 dependencies = [
     "twat>=1.8.1",           # Main twat package
+    "fire>=0.6.0",           # Fire CLI framework
 ]
 
 # Project Authors
@@ -63,7 +64,13 @@ Source = "https://github.com/twardoch/twat-text"
 # ---------------
 # Command-line scripts available after installation
 [project.scripts]
-twat-text = "twat_text.twat_text:main"
+twat-text = "twat_text.__main__:main"
+twat-text-version = "twat_text.__main__:cmd_version"
+twat-text-tokenize = "twat_text.__main__:cmd_tokenize"
+twat-text-clean = "twat_text.__main__:cmd_clean"
+twat-text-markdown = "twat_text.__main__:cmd_markdown"
+twat-text-detect-lang = "twat_text.__main__:cmd_detect_lang"
+twat-text-summarize = "twat_text.__main__:cmd_summarize"
 
 # Twat Plugin Registration
 # -----------------------
