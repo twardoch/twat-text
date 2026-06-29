@@ -1,8 +1,6 @@
----
-this_file: LOG.md
----
-
 # Changelog
+
+<!-- this_file: CHANGELOG.md -->
 
 All notable changes to this project will be documented in this file.
 
@@ -11,7 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-*No unreleased changes yet.*
+### Added
+
+- MkDocs Material documentation site (`mkdocs.yml`, `docs/`) with index, CLI reference, and API reference pages.
+
+## [v0.1.0] - 2026-06-29
+
+Full rewrite of the text-processing core with a complete public API, Fire CLI, and LLM adapter.
+
+### Added
+
+- Deterministic helpers: `normalize_text`, `clean_text`, `chunk_text`, `context_window_chunks`,
+  `extract_urls`, `extract_emails`, `extract_numbers`, `markdown_to_plain`, `html_to_plain`,
+  `plain_to_html`, `convert_text`, `estimate_tokens`.
+- LLM-backed helpers (lazy import of `twat_llm`): `summarize`, `rewrite`, `extract_structured`, `classify`.
+- Fire-based CLI with subcommands: `version`, `tokenize`, `clean`, `markdown`, `summarize`, `detect-lang`.
+- Standalone entry-points: `twat-text-version`, `twat-text-tokenize`, `twat-text-clean`,
+  `twat-text-markdown`, `twat-text-summarize`, `twat-text-detect-lang`.
+- `twat.plugins` entry-point so the host `twat` dispatcher exposes it as `twat text ...`.
+- Compatibility `Config` dataclass and `process_data` function that clean, chunk, and extract from list data.
+- `py.typed` marker for PEP 561 compliance.
+- Full test suite (21 tests) covering deterministic helpers, LLM adapter mocking, and CLI invocation.
+- GitHub Actions CI: ruff lint + format check, pytest matrix (Python 3.10–3.12), build verification.
 
 ## [v0.0.1] - 2025-02-15
 
@@ -19,27 +38,11 @@ Initial release of the twat-text package.
 
 ### Added
 
-- Basic project structure with modern Python packaging (PEP 621 compliance)
-- Initial implementation of `twat_text.py` with:
-  - Type hints and dataclass-based configuration
-  - Basic logging setup
-  - Process data function skeleton
-- Development workflow setup with Hatch
-- Basic test suite configuration
-- MIT License
-- Project documentation in README.md
+- Basic project structure with modern Python packaging (hatchling + hatch-vcs, PEP 621).
+- Initial `twat_text.py` skeleton with type hints and `process_data` placeholder.
+- Development workflow with Hatch, ruff, mypy.
+- MIT License.
 
-### Changed
-
-- Moved `src/twat_text.py` to `src/twat_text/twat_text.py` for better package structure
-- Updated .gitignore to exclude `_private` directory
-
-### Technical Details
-
-- Added proper type hints using modern Python syntax (|)
-- Implemented error handling with proper exception messages
-- Set up logging with debug mode support
-- Added `__future__.annotations` import for modern type hint handling
-
-[Unreleased]: https://github.com/twardoch/twat-text/compare/v0.0.1...HEAD
-[v0.0.1]: https://github.com/twardoch/twat-text/releases/tag/v0.0.1 
+[Unreleased]: https://github.com/twardoch/twat-text/compare/v0.1.0...HEAD
+[v0.1.0]: https://github.com/twardoch/twat-text/compare/v0.0.1...v0.1.0
+[v0.0.1]: https://github.com/twardoch/twat-text/releases/tag/v0.0.1
