@@ -45,8 +45,8 @@ n = estimate_tokens(plain)
 from twat_text import summarize, rewrite, classify
 
 summary = summarize(long_text)
-formal  = rewrite(draft, instruction="Make this formal")
-label   = classify(message, labels=["support", "sales", "spam"])
+formal = rewrite(draft, instruction="Make this formal")
+label = classify(message, labels=["support", "sales", "spam"])
 ```
 
 ## Available functions
