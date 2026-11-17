@@ -1,0 +1,25 @@
+{
+  "version": "unorouter-free-contract-v1",
+  "url": "https://unorouter.com/en/docs/platform/models-and-pricing",
+  "statement": "A :free model routes only to free providers and never uses your balance.",
+  "observed_at": 1794546300,
+  "method": "official-document-read-via-web",
+  "limitation": "Versioned documented promise; not a per-call receipt or proof of zero cost. Revalidate after 24 hours. Catalogue and cumulative usage are checked before and after every submission.",
+  "privacy": {
+    "own_purpose": {
+      "trains_or_retains": true,
+      "consent_required": false,
+      "countries": [
+        "US"
+      ]
+    },
+    "provider": {
+      "seat_country": "US",
+      "prompts": "trains",
+      "transfer": "dpf",
+      "unsafe_third_country": false,
+      "onward_unvetted": false
+    }
+  },
+  "paragraph_sha256": "2b4cd88092e0372f9ec9b73885f39e1bd561615175f6a867f15116ff45af1ab9"
+}

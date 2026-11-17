@@ -71,6 +71,9 @@ twat-text-clean = "twat_text.__main__:cmd_clean"
 twat-text-markdown = "twat_text.__main__:cmd_markdown"
 twat-text-detect-lang = "twat_text.__main__:cmd_detect_lang"
 twat-text-summarize = "twat_text.__main__:cmd_summarize"
+twat-aps-books = "twat_text.aps.books:main"
+twat-aps-quality = "twat_text.aps.quality:main"
+twat-aps-semantics = "twat_text.aps.semantics:main"
 
 # Twat Plugin Registration
 # -----------------------
@@ -186,7 +189,12 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101"]
+"tests/*" = ["S101", "PLW1510"]
+"src/twat_text/__main__.py" = ["PLC0415"]  # lazy imports keep CLI startup light
+# APS pipeline ported from a standalone script set: plain error strings, lazy
+# optional imports and worker closures are deliberate there.
+"src/twat_text/aps/*" = ["EM101", "EM102", "B023", "PLC0415", "PLC0414", "PLR0917", "RUF059", "PLW0108", "PLW2901", "RUF005", "B007", "RUF001", "S101", "N818", "S102", "B905", "PLW1510"]
+"tests/aps/*" = ["S101", "EM101", "EM102", "B023", "PLC0415", "PLC0414", "PLR0917", "RUF059", "PLW0108", "PLW2901", "RUF005", "B007", "RUF001", "N818", "S102", "B905", "PLW1510"]
 
 [tool.mypy]
 python_version = "3.10"
@@ -226,6 +234,13 @@ exclude_lines = [
 
 # Optional dependencies
 [project.optional-dependencies]
+aps = [
+    "markdown-it-py>=3.0.0",           # CommonMark parser for APS chunk protection
+    "semantic-text-splitter>=0.29.0",  # Token-bounded semantic chunking
+    "cerebrate-file>=1.0.36",          # Qwen tokenizer and chunking helpers
+    "loguru>=0.7.0",                   # Structured logging in APS workers
+]
+
 test = [
     "pytest>=8.3.4",
     "pytest-cov>=6.0.0",

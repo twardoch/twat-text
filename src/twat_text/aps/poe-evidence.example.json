@@ -1,0 +1,29 @@
+{
+  "accept_historical_cost_risk": false,
+  "models": {
+    "Kimi-K3.1-Pro-T": {
+      "observed_points": 0,
+      "observed_at": "2026-11-12 around 23:44 UTC",
+      "prompt": "Reply with exactly OK",
+      "source": "Independent historical Poe usage audit supplied for Task 1; successful tiny canary; not a future price quote"
+    },
+    "DeepSeek-V4-Pro-813": {
+      "observed_points": 0,
+      "observed_at": "2026-11-12 around 23:44 UTC",
+      "prompt": "Reply with exactly OK",
+      "source": "Independent historical Poe usage audit supplied for Task 1; successful tiny canary; not a future price quote"
+    },
+    "Zai-GLM-5.3": {
+      "observed_points": 0,
+      "observed_at": "2026-11-12 around 23:44 UTC",
+      "prompt": "Reply with exactly OK",
+      "source": "Independent historical Poe usage audit supplied for Task 1; successful tiny canary; not a future price quote"
+    },
+    "GLM-5.3-Flash-T": {
+      "observed_points": 0,
+      "observed_at": "2026-11-12 around 23:44 UTC",
+      "prompt": "Reply with exactly OK",
+      "source": "Independent historical Poe usage audit supplied for Task 1; successful tiny canary; not a future price quote"
+    }
+  }
+}

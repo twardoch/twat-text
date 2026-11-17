@@ -73,4 +73,5 @@ nav:
   - Home: index.md
   - CLI Reference: cli.md
   - API Reference: api.md
+  - Proposition segmentation: aps.md
   - Changelog: changelog.md

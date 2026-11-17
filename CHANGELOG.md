@@ -11,7 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `twat_text.aps`: Abstractive Proposition Segmentation for long Markdown corpora (`books`,
+  `quality`, `semantics`, `transport`, `unorouter`), with `twat-aps-books`, `twat-aps-quality` and
+  `twat-aps-semantics` scripts and an `aps` extra. Work paths default to `./_private` or
+  `TWAT_TEXT_APS_BASE`; workers run as `python -m twat_text.aps.<module>`.
+- APS test suite under `tests/aps/`; CI installs the `aps` extra.
+- `docs/aps.md`.
 - MkDocs Material documentation site (`mkdocs.yml`, `docs/`) with index, CLI reference, and API reference pages.
+
+### Fixed
+
+- APS rollback notes work on Python 3.10 (`__notes__` instead of `add_note`).
+
+### Changed
+
+- `build.sh --docs` mode; `publish.sh` triggers the GitHub release workflow.
 
 ## [v0.1.0] - 2026-06-29
 

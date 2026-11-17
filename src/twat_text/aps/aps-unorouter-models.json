@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "routes": {
+    "direct-unorouter:solar-pro4:free": {
+      "model": "solar-pro4:free",
+      "catalog_url": "https://api.unorouter.com/api/pricing/catalog/model?model=solar-pro4:free",
+      "privacy": {
+        "own_purpose": {
+          "trains_or_retains": true,
+          "consent_required": false,
+          "countries": [
+            "KR"
+          ]
+        },
+        "group_providers": {
+          "up1-solar-pro4-free": {
+            "seat_country": "KR",
+            "prompts": "unknown",
+            "transfer": "unknown",
+            "unsafe_third_country": false,
+            "onward_unvetted": false
+          }
+        },
+        "enable_groups": [
+          "up1-solar-pro4-free"
+        ],
+        "auto_chain": [
+          "up1-solar-pro4-free"
+        ]
+      },
+      "evidence": {
+        "observed_at_utc": "2026-11-13T06:33:40.638201+00:00",
+        "catalog_sha256": "12fae0d33e282cd78619db2a959147c18d88709c4d79b5441e469d6284a7de34",
+        "limitation": "Public catalogue observation; recheck exact model, prices and privacy before and after each submission. Retention/training may occur; no consent was changed."
+      }
+    },
+    "direct-unorouter:step-5-preview:free": {
+      "model": "step-5-preview:free",
+      "catalog_url": "https://api.unorouter.com/api/pricing/catalog/model?model=step-5-preview:free",
+      "privacy": {
+        "own_purpose": {
+          "trains_or_retains": true,
+          "consent_required": false,
+          "countries": [
+            "US"
+          ]
+        },
+        "group_providers": {
+          "nvda1-step-5-preview-free": {
+            "seat_country": "US",
+            "prompts": "trains",
+            "transfer": "dpf",
+            "unsafe_third_country": false,
+            "onward_unvetted": false
+          }
+        },
+        "enable_groups": [
+          "nvda1-step-5-preview-free"
+        ],
+        "auto_chain": [
+          "nvda1-step-5-preview-free"
+        ]
+      },
+      "evidence": {
+        "observed_at_utc": "2026-11-13T06:33:40.787006+00:00",
+        "catalog_sha256": "f4b879091bbe452bd4671ccae6c4a25cf49fc51fa6a5f8ea13b2f5d3434a6309",
+        "limitation": "Public catalogue observation; recheck exact model, prices and privacy before and after each submission. Retention/training may occur; no consent was changed."
+      }
+    }
+  }
+}

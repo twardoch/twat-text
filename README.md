@@ -55,6 +55,19 @@ twat-text rewrite "draft text" --instruction "Make it concise"
 
 Through the host plugin dispatcher, the same package is available as `twat text ...` once installed.
 
+## Proposition segmentation (APS)
+
+`twat_text.aps` rewrites long Markdown corpora into atomic, self-contained propositions through free
+LLM routes, with durable SQLite state, fingerprinted runs and no silent retries.
+
+```bash
+pip install "twat-text[aps]"
+twat-aps-books prepare --root docs/ --work work/ --output out/
+twat-aps-books run --root docs/ --work work/ --output out/ --models freellm:unorouter:glm-5.3-flash:free
+```
+
+See [docs/aps.md](docs/aps.md) for the quality audit and semantic hierarchy commands.
+
 ## Development
 
 ```bash
